@@ -1,1 +1,882 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استعد – مساعدك للتفوق في اختبارات نافس</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#2563eb; --primary-dark:#1e40af; --primary-light:#dbeafe;
+  --success:#16a34a; --success-light:#dcfce7;
+  --warning:#d97706; --warning-light:#fef3c7;
+  --danger:#dc2626; --danger-light:#fee2e2;
+  --bg:#f4f6fb; --card:#ffffff; --text:#1e293b; --muted:#64748b; --border:#e2e8f0;
+  --radius:18px; --radius-sm:12px;
+  --math:#2563eb; --science:#16a34a; --reading:#9333ea;
+  --shadow:0 4px 18px rgba(30,41,59,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Tajawal','Segoe UI',Tahoma,Arial,sans-serif;font-size:17px;line-height:1.7}
+.wrap{max-width:840px;margin:0 auto;padding:22px 18px 60px}
+.hidden{display:none!important}
+h1,h2,h3{margin:0 0 6px;font-weight:800}
+p{margin:0 0 10px}
+button{font-family:inherit;cursor:pointer;border:none}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 22px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--primary-dark)}
+.brand span.logo{font-size:28px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--primary-light);color:var(--primary-dark);padding:6px 14px;border-radius:999px;font-weight:700;font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:16px;transition:.15s transform,.15s box-shadow;background:var(--primary);color:#fff}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,.35)}
+.btn:disabled{background:#cbd5e1;color:#fff;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.secondary{background:var(--primary-light);color:var(--primary-dark)}
+.btn.secondary:hover{box-shadow:0 6px 16px rgba(37,99,235,.15)}
+.btn.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.btn.success{background:var(--success)}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.grade-choices{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+@media(max-width:560px){.grade-choices{grid-template-columns:1fr}}
+.grade-card{border:2px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;transition:.15s}
+.grade-card .icon{font-size:38px;display:block;margin-bottom:8px}
+.grade-card b{display:block;font-size:19px;margin-bottom:4px}
+.grade-card small{color:var(--muted)}
+.grade-card.selected{border-color:var(--primary);background:var(--primary-light)}
+input[type=text]{width:100%;padding:14px 16px;border-radius:var(--radius-sm);border:2px solid var(--border);font-family:inherit;font-size:17px}
+input[type=text]:focus{outline:none;border-color:var(--primary)}
+label.field-label{display:block;font-weight:700;margin-bottom:8px}
+.notice{background:var(--warning-light);color:#92400e;border-radius:var(--radius-sm);padding:12px 16px;font-size:14.5px;margin-top:16px}
+.resume-banner{background:var(--primary-light);border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+ul.bullets{margin:10px 0;padding-inline-start:22px}
+ul.bullets li{margin-bottom:6px}
+.section-icon{font-size:44px}
+.progress-track{height:10px;background:var(--border);border-radius:999px;overflow:hidden;margin:14px 0}
+.progress-fill{height:100%;background:var(--primary);border-radius:999px;transition:width .25s}
+.q-meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.q-meta .subj-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.passage-box{background:#f8fafc;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:16px;font-size:16px;color:#334155;max-height:260px;overflow:auto}
+.passage-box b{display:block;margin-bottom:6px;color:var(--text)}
+.q-text{font-size:19px;font-weight:700;margin:6px 0 18px}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;border:2px solid var(--border);border-radius:var(--radius-sm);padding:13px 16px;text-align:right;background:#fff;font-size:16.5px;width:100%}
+.opt .letter{flex:none;width:30px;height:30px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted)}
+.opt:hover{border-color:#94a3b8}
+.opt.picked{border-color:var(--primary);background:var(--primary-light)}
+.opt.picked .letter{background:var(--primary);color:#fff}
+.opt.correct{border-color:var(--success);background:var(--success-light)}
+.opt.correct .letter{background:var(--success);color:#fff}
+.opt.wrong{border-color:var(--danger);background:var(--danger-light)}
+.opt.wrong .letter{background:var(--danger);color:#fff}
+.opt[disabled]{cursor:default;opacity:1;color:var(--text)}
+.opt[disabled] span{color:inherit}
+.feedback{margin-top:16px;padding:14px 18px;border-radius:var(--radius-sm);font-size:15.5px}
+.feedback.ok{background:var(--success-light);color:#166534}
+.feedback.bad{background:var(--danger-light);color:#991b1b}
+.feedback b{display:block;margin-bottom:4px;font-size:16px}
+.stopwatch{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+.skill-row{margin-bottom:14px}
+.skill-row .lbl{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:5px}
+.skill-row .lbl b{font-weight:700}
+.bar-track{height:12px;background:var(--border);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px}
+.subject-block{margin-bottom:22px}
+.subject-title{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15.5px;margin-bottom:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.level-card{text-align:center;padding:30px 20px}
+.level-card .score{font-size:52px;font-weight:800;color:var(--primary-dark)}
+.level-card .level-label{font-size:22px;font-weight:800;margin-top:4px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+.list-box{border-radius:var(--radius-sm);padding:18px}
+.list-box.good{background:var(--success-light)}
+.list-box.bad{background:var(--warning-light)}
+.list-box h3{margin-bottom:10px}
+.list-box .item{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.06)}
+.list-box .item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.list-box .item b{display:block;font-size:15.5px}
+.list-box .item span{font-size:13.5px;color:var(--muted)}
+.muted{color:var(--muted);font-size:14.5px}
+.center{text-align:center}
+details.progress-panel{margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
+details.progress-panel summary{cursor:pointer;font-weight:700;color:var(--primary)}
+.round-stats{display:flex;gap:14px;justify-content:center;margin:14px 0}
+.round-stats .stat{background:var(--bg);border-radius:var(--radius-sm);padding:14px 22px;text-align:center;min-width:100px}
+.round-stats .stat b{display:block;font-size:26px}
+footer.disclaimer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;line-height:1.8}
+@media print{.btn-row,.topbar,details.progress-panel{display:none!important}}
+@media(prefers-color-scheme:dark){
+  body{background:#0f172a;color:#e2e8f0}
+  .card{background:#1e293b;box-shadow:none;border:1px solid #334155}
+  .opt{background:#1e293b;border-color:#334155;color:#e2e8f0}
+  .opt .letter{background:#0f172a}
+  input[type=text]{background:#0f172a;border-color:#334155;color:#e2e8f0}
+  .grade-card{border-color:#334155}
+  .passage-box{background:#0f172a;border-color:#334155;color:#cbd5e1}
+  .bar-track,.progress-track{background:#334155}
+  .round-stats .stat{background:#0f172a}
+  .resume-banner{background:#1e3a8a33}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="logo">🎯</span> استعد لنافس</div>
+    <div id="topPill" class="pill hidden"></div>
+  </div>
 
+  <!-- شاشة الترحيب -->
+  <section id="screen-welcome" class="screen">
+    <div id="resumeBanner" class="resume-banner hidden">
+      <div><b id="resumeText"></b></div>
+      <div class="btn-row" style="margin:0">
+        <button class="btn" onclick="resumeTraining()">متابعة التدريب</button>
+        <button class="btn ghost" onclick="clearSaved()">ابدأ من جديد</button>
+      </div>
+    </div>
+    <div class="card center">
+      <h1>مرحبًا بك في «استعد» 👋</h1>
+      <p class="muted">أداة تدريبية غير رسمية تساعدك على التهيؤ لاختبارات نافس (الاختبارات الوطنية) لطلاب الصف الثالث والسادس الابتدائي، من خلال اختبار تشخيصي على نمط الاختبار الحقيقي، يليه تحليل لنقاط قوتك وضعفك، وتدريب مخصص لك.</p>
+    </div>
+    <div class="card">
+      <label class="field-label" for="studentName">اسم الطالب</label>
+      <input type="text" id="studentName" placeholder="اكتب اسمك هنا">
+
+      <label class="field-label" style="margin-top:22px">اختر المرحلة الدراسية</label>
+      <div class="grade-choices">
+        <div class="grade-card" data-grade="3" onclick="pickGrade(3)">
+          <span class="icon">🧒</span>
+          <b>الصف الثالث الابتدائي</b>
+          <small>رياضيات + قراءة</small>
+        </div>
+        <div class="grade-card" data-grade="6" onclick="pickGrade(6)">
+          <span class="icon">🧑</span>
+          <b>الصف السادس الابتدائي</b>
+          <small>رياضيات + علوم + قراءة</small>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="startBtn" disabled onclick="startFlow()">ابدأ الاختبار التشخيصي</button>
+      </div>
+      <div class="notice">⚠️ هذه الأسئلة مصمَّمة خصيصًا لهذه الأداة على غرار أسلوب وبنية نماذج التهيئة الرسمية الصادرة عن المركز الوطني للقياس، وليست أسئلة الاختبار الرسمي ولا بديلًا عنه.</div>
+    </div>
+    <footer class="disclaimer">أداة تدريبية مستقلة غير تابعة لهيئة تقويم التعليم والتدريب أو المركز الوطني للقياس.</footer>
+  </section>
+
+  <!-- شاشة تعليمات القسم -->
+  <section id="screen-section-intro" class="screen hidden">
+    <div class="card center">
+      <div class="section-icon" id="siIcon">🧮</div>
+      <h2 id="siTitle"></h2>
+      <p class="muted" id="siMeta"></p>
+      <div style="text-align:right;max-width:480px;margin:18px auto 0">
+        <ul class="bullets">
+          <li>تحت كل سؤال أربعة خيارات، من بينها إجابة صحيحة واحدة فقط.</li>
+          <li>اقرأ السؤال بهدوء، ثم اختر الإجابة التي تراها صحيحة.</li>
+          <li>حاول الإجابة عن جميع الأسئلة، ويمكنك مراجعة إجاباتك قبل إنهاء القسم.</li>
+        </ul>
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn" onclick="beginSection()">ابدأ القسم ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- شاشة الاختبار التشخيصي -->
+  <section id="screen-diagnostic" class="screen hidden">
+    <div class="card">
+      <div class="progress-track"><div class="progress-fill" id="diagProgressFill" style="width:0%"></div></div>
+      <div class="q-meta">
+        <span class="subj-tag" id="diagSubjTag"></span>
+        <span id="diagCounter"></span>
+        <span class="stopwatch" id="diagStopwatch">⏱ 00:00</span>
+      </div>
+      <div id="diagPassage"></div>
+      <div class="q-text" id="diagQText"></div>
+      <div class="options" id="diagOptions"></div>
+      <div class="btn-row">
+        <button class="btn ghost" id="diagPrevBtn" onclick="diagPrev()">السابق</button>
+        <button class="btn" id="diagNextBtn" onclick="diagNext()" disabled>التالي</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- شاشة التقرير -->
+  <section id="screen-report" class="screen hidden">
+    <div class="card level-card">
+      <div class="muted">نتيجتك الإجمالية</div>
+      <div class="score" id="repScore">0%</div>
+      <div class="level-label" id="repLevel"></div>
+      <p class="muted" id="repSub"></p>
+    </div>
+
+    <div class="card">
+      <h3>تحليل الأداء حسب المهارة 📊</h3>
+      <p class="muted" style="margin-bottom:18px">هذا تحليل أولي إرشادي مبني على أداء <span id="repName"></span> في الاختبار التشخيصي، ويتحسّن دقةً كلما تدرّب أكثر.</p>
+      <div id="repSkillBlocks"></div>
+    </div>
+
+    <div class="two-col">
+      <div class="list-box good">
+        <h3>💪 نقاط القوة</h3>
+        <div id="repStrengths"></div>
+      </div>
+      <div class="list-box bad">
+        <h3>🎯 نقاط تحتاج تدريبًا</h3>
+        <div id="repWeak"></div>
+      </div>
+    </div>
+
+    <div class="card center">
+      <h3>هل أنت مستعد لتعزيز مستواك؟</h3>
+      <p class="muted">سيبني لك «استعد» جولة تدريب مخصصة تركّز أكثر على نقاطك التي تحتاج دعمًا.</p>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn success" onclick="goTraining()">ابدأ برنامج التدريب المخصص 🚀</button>
+        <button class="btn ghost" onclick="window.print()">طباعة التقرير 🖨</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- شاشة التدريب -->
+  <section id="screen-training" class="screen hidden">
+    <div class="card">
+      <div class="progress-track"><div class="progress-fill" id="trainProgressFill" style="width:0%"></div></div>
+      <div class="q-meta">
+        <span class="subj-tag" id="trainSubjTag"></span>
+        <span id="trainCounter"></span>
+      </div>
+      <div id="trainPassage"></div>
+      <div class="q-text" id="trainQText"></div>
+      <div class="options" id="trainOptions"></div>
+      <div id="trainFeedback"></div>
+      <div class="btn-row">
+        <button class="btn" id="trainNextBtn" onclick="trainNext()" disabled>التالي</button>
+      </div>
+      <details class="progress-panel">
+        <summary>عرض لوحة تقدمي 📈</summary>
+        <div id="liveSkillBlocks" style="margin-top:14px"></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- شاشة ملخص الجولة -->
+  <section id="screen-round-summary" class="screen hidden">
+    <div class="card center">
+      <h2>أحسنت! أنهيت هذه الجولة 🎉</h2>
+      <div class="round-stats">
+        <div class="stat"><b id="rsCorrect">0</b>إجابات صحيحة</div>
+        <div class="stat"><b id="rsTotal">0</b>عدد الأسئلة</div>
+      </div>
+      <p class="muted" id="rsNote"></p>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn success" onclick="goTraining()">جولة تدريب أخرى 🔁</button>
+        <button class="btn secondary" onclick="renderReport()">عرض التقرير الكامل 📊</button>
+        <button class="btn ghost" onclick="retakeDiagnostic()">إعادة الاختبار التشخيصي 📝</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ================= بيانات الأسئلة ================= */
+const SUBJECTS = {
+  math:{name:'الرياضيات', icon:'🧮', color:'#2563eb'},
+  science:{name:'العلوم', icon:'🔬', color:'#16a34a'},
+  reading:{name:'القراءة', icon:'📖', color:'#9333ea'}
+};
+
+const SKILLS = {
+  3: [
+    {id:'g3-m-num', subject:'math', name:'الأعداد والعمليات', tip:'راجع الجمع والطرح والضرب والقسمة للأعداد حتى 4 خانات مع التركيز على المسائل اللفظية.'},
+    {id:'g3-m-meas', subject:'math', name:'القياس (الوقت والنقود)', tip:'تدرّب على قراءة الساعة وحساب الوقت المنقضي، وعلى مسائل النقود والباقي.'},
+    {id:'g3-m-geo', subject:'math', name:'الهندسة والأنماط', tip:'راجع أسماء الأشكال الهندسية وعدد أضلاعها، وتدرّب على إكمال الأنماط العددية.'},
+    {id:'g3-m-data', subject:'math', name:'قراءة البيانات', tip:'تدرّب على قراءة الجداول والرسوم البيانية واستخراج المعلومات منها بدقة.'},
+    {id:'g3-r-vocab', subject:'reading', name:'المفردات', tip:'وسّع مفرداتك بقراءة نصوص متنوعة، وتدرّب على إيجاد المرادف والضد من السياق.'},
+    {id:'g3-r-detail', subject:'reading', name:'الفهم المباشر', tip:'تدرّب على العودة إلى النص لاستخراج التفاصيل بدقة بدلًا من الاعتماد على الذاكرة فقط.'},
+    {id:'g3-r-infer', subject:'reading', name:'الفهم الاستنتاجي', tip:'تدرّب على تحديد الفكرة الرئيسة والاستنتاج مما لم يُذكر صراحة في النص.'}
+  ],
+  6: [
+    {id:'g6-m-num', subject:'math', name:'الكسور والأعداد العشرية', tip:'راجع جمع وطرح الكسور والأعداد العشرية والتحويل بينهما.'},
+    {id:'g6-m-alg', subject:'math', name:'النسبة المئوية والجبر', tip:'تدرّب على حساب النسبة المئوية، وكتابة وحل التعابير الجبرية البسيطة.'},
+    {id:'g6-m-geo', subject:'math', name:'الهندسة والقياس', tip:'راجع محيط ومساحة وحجم الأشكال الهندسية، وقياس الزوايا.'},
+    {id:'g6-m-stat', subject:'math', name:'الإحصاء والاحتمالات', tip:'تدرّب على حساب المتوسط والوسيط، وحساب الاحتمالات البسيطة.'},
+    {id:'g6-m-pattern', subject:'math', name:'الأنماط وحل المسائل', tip:'تدرّب على اكتشاف قاعدة النمط العددي وحل المسائل متعددة الخطوات.'},
+    {id:'g6-s-phys', subject:'science', name:'العلوم الفيزيائية', tip:'راجع مفاهيم الضوء والمغناطيسية والتغيرات الفيزيائية والآلات البسيطة.'},
+    {id:'g6-s-life', subject:'science', name:'العلوم الحياتية', tip:'راجع تصنيف المخلوقات الحية والوراثة والأجهزة الحيوية في جسم الإنسان.'},
+    {id:'g6-s-earth', subject:'science', name:'علوم الأرض والفضاء', tip:'راجع أطوار القمر وتكوّن الكهوف وطبقات الأرض ومصادر الطاقة.'},
+    {id:'g6-r-vocab', subject:'reading', name:'المفردات', tip:'وسّع مفرداتك واستنتج معاني الكلمات الجديدة من سياق الجملة.'},
+    {id:'g6-r-detail', subject:'reading', name:'الفهم المباشر والتفاصيل', tip:'تدرّب على استخراج التفاصيل الدقيقة من النص بالرجوع إليه مباشرة.'},
+    {id:'g6-r-infer', subject:'reading', name:'الاستنتاج ونوع النص', tip:'تدرّب على تحديد نوع النص، والفكرة الرئيسة، والاستنتاج المنطقي من المعطيات.'}
+  ]
+};
+
+const PASSAGES = {
+  p_camel: 'يُعَدُّ الجملُ من أكثر الحيوانات قدرة على تحمل الحرارة والعطش، لذلك يُطلَق عليه لقب سفينة الصحراء. يستطيع الجمل السير مسافات طويلة دون أن يشرب الماء لعدة أيام، وذلك لأن جسمه يخزن الدهون في السنام ليستخدمها عند الحاجة إلى الطاقة. كما تساعده أهدابه الطويلة وأذناه الصغيرتان على حماية عينيه وأذنيه من الرمال أثناء العواصف الرملية. لهذا السبب استخدمه الإنسان منذ القدم للتنقل والتجارة في الصحراء.',
+  p_recycle: 'إعادة التدوير عملية تحويل النفايات مثل الورق والبلاستيك والزجاج إلى مواد يمكن استخدامها مرة أخرى بدلًا من رميها. تساعد إعادة التدوير على تقليل كمية القمامة، والحفاظ على البيئة نظيفة، وتوفير الموارد الطبيعية مثل الأشجار والماء. يمكن للطلاب المشاركة في إعادة التدوير عن طريق فصل القمامة في المنزل والمدرسة، ووضع الورق في سلة، والبلاستيك في سلة أخرى. هذه العادة البسيطة، إذا التزم بها الجميع، يمكن أن تُحدث فرقًا كبيرًا في حماية كوكبنا.',
+  p_friend: 'في يوم من الأيام، لاحظ سالم أن زميله يوسف يواجه صعوبة في حل مسائل الرياضيات. بدلًا من الانشغال بلعبه، جلس سالم بجانب يوسف وشرح له الخطوات بهدوء وصبر. بعد عشر دقائق، ابتسم يوسف وقال: «فهمت أخيرًا، شكرًا لك يا سالم!». شعر سالم بسعادة كبيرة لأنه ساعد صديقه، وأدرك أن التعاون يجعل الأمور الصعبة أسهل.',
+  p_solar: 'تُعَدّ الطاقة الشمسية من أهم مصادر الطاقة المتجددة التي يعتمد عليها العالم اليوم، إذ تُستمد مباشرة من أشعة الشمس وتُحوَّل إلى كهرباء باستخدام ألواح خاصة تسمى الخلايا الشمسية. تتميز هذه الطاقة بأنها نظيفة ولا تنتج عنها ملوثات تضر بالبيئة، على عكس الطاقة المستمدة من حرق الفحم أو النفط. وتزداد أهمية الطاقة الشمسية في المناطق الصحراوية التي تتمتع بأشعة شمس قوية طوال العام، مثل معظم مناطق المملكة العربية السعودية. ومع ذلك، تواجه هذه التقنية بعض التحديات، منها ارتفاع تكلفة الألواح الشمسية في البداية، وحاجتها إلى مساحات واسعة لتركيبها، إضافة إلى أنها لا تعمل بكفاءة كاملة في الأيام الغائمة أو أثناء الليل.',
+  p_bees: 'يلعب النحل دورًا حيويًا في الحفاظ على التوازن البيئي، فهو المسؤول الأول عن عملية التلقيح التي تساعد النباتات على إنتاج الثمار والبذور. فعندما ينتقل النحل من زهرة إلى أخرى بحثًا عن الرحيق، يعلق حبوب اللقاح بجسمه الصغير المغطى بالشعيرات، فينقلها من زهرة إلى أخرى، مما يساهم في تكاثر النباتات. ويُقدَّر أن نحو ثلث المحاصيل الغذائية في العالم يعتمد بشكل مباشر أو غير مباشر على تلقيح النحل. لكن أعداد النحل تتناقص في السنوات الأخيرة بسبب استخدام المبيدات الحشرية الضارة، وفقدان بيئاتها الطبيعية، وتغير المناخ.',
+  p_park: 'افتتحت البلدية حديقة جديدة تحتوي على مسارات للمشي وألعاب للأطفال ومنطقة مخصصة لألعاب الكرة. تفتح الحديقة أبوابها يوميًا من الساعة 4 عصرًا حتى 10 مساءً، وتشجع البلدية الأسر على زيارتها والمحافظة على نظافتها.'
+};
+
+function Q(id, skill, text, options, answer, ex, passage){
+  return {id, skill, q:text, options, answer, ex, passage: passage||null};
+}
+
+const QUESTIONS = [
+/* ---------- الصف الثالث: الأعداد والعمليات ---------- */
+Q('g3-num-1','g3-m-num','جمعت مريم 245 ريالًا من مصروفها، وأعطتها جدتها 130 ريالًا إضافية. كم مجموع ما لدى مريم الآن؟',['375','365','385','315'],'375','نجمع 245 + 130 = 375 ريالًا.'),
+Q('g3-num-2','g3-m-num','لدى مدرسة 384 طالبًا وطالبة، انتقل منها 57 طالبًا إلى مدرسة أخرى. كم عدد الطلاب المتبقين؟',['327','337','347','317'],'327','نطرح 384 - 57 = 327.'),
+Q('g3-num-3','g3-m-num','يبيع بائع 6 صناديق من التفاح، في كل صندوق 24 حبة تفاح. كم عدد حبات التفاح الكلي؟',['144','120','148','134'],'144','6 × 24 = 144 حبة تفاح.'),
+Q('g3-num-4','g3-m-num','قسّم المعلم 56 قلمًا بالتساوي على 7 طلاب. كم قلمًا حصل عليه كل طالب؟',['8','7','9','6'],'8','56 ÷ 7 = 8 أقلام لكل طالب.'),
+Q('g3-num-5','g3-m-num','أيّ الأعداد التالية يقع بين 350 و450؟',['398','289','512','460'],'398','398 أكبر من 350 وأصغر من 450، بينما بقية الأعداد خارج هذا المدى.'),
+/* ---------- الصف الثالث: القياس (الوقت والنقود) ---------- */
+Q('g3-meas-1','g3-m-meas','تبدأ الحصة الأولى في الساعة 7:15 صباحًا وتستغرق 40 دقيقة. متى تنتهي الحصة؟',['7:55','7:45','8:05','7:35'],'7:55','7:15 + 40 دقيقة = 7:55.'),
+Q('g3-meas-2','g3-m-meas','اشترى خالد قلمًا بـ 6 ريالات، ودفترًا بـ 9 ريالات. إذا دفع بورقة فئة 20 ريالًا، فكم ريالًا سيستلم الباقي؟',['5','6','4','15'],'5','المجموع 6+9=15 ريالًا، والباقي = 20-15 = 5 ريالات.'),
+Q('g3-meas-3','g3-m-meas','كم عدد الدقائق في ساعتين وربع؟',['135','120','125','150'],'135','الساعتان = 120 دقيقة، والربع = 15 دقيقة، فالمجموع = 135 دقيقة.'),
+Q('g3-meas-4','g3-m-meas','طول قلم الرصاص 14 سم. ما طوله بالمليمتر؟',['140','104','14','1400'],'140','كل سنتيمتر = 10 مليمتر، لذا 14 × 10 = 140 ملم.'),
+Q('g3-meas-5','g3-m-meas','لدى سلمى 3 أوراق نقدية من فئة 10 ريالات، وورقتان من فئة 5 ريالات. كم ريالًا معها؟',['40','35','45','30'],'40','3×10=30، و2×5=10، فالمجموع = 40 ريالًا.'),
+/* ---------- الصف الثالث: الهندسة والأنماط ---------- */
+Q('g3-geo-1','g3-m-geo','كم عدد أضلاع الشكل السداسي؟',['6','5','7','8'],'6','الشكل السداسي له 6 أضلاع.'),
+Q('g3-geo-2','g3-m-geo','ما الشكل الهندسي الذي له 4 أضلاع متساوية الطول وجميع زواياه قائمة؟',['المربع','المستطيل','المثلث','الدائرة'],'المربع','المربع له 4 أضلاع متساوية الطول، وجميع زواياه قائمة.'),
+Q('g3-geo-3','g3-m-geo','ما العدد المناسب لإكمال النمط: 4، 8، 12، 16، ___ ؟',['20','18','22','24'],'20','النمط يزيد بمقدار 4 في كل مرة: 16 + 4 = 20.'),
+Q('g3-geo-4','g3-m-geo','ما العدد المناسب لإكمال النمط: 3، 6، 12، 24، ___ ؟',['48','36','30','27'],'48','كل عدد هو ضعف الذي قبله: 24 × 2 = 48.'),
+Q('g3-geo-5','g3-m-geo','كم عدد أوجه المكعب؟',['6','4','8','12'],'6','المكعب له 6 أوجه مربعة.'),
+/* ---------- الصف الثالث: قراءة البيانات ---------- */
+Q('g3-data-1','g3-m-data','يوضح الجدول عدد الكتب التي قرأها كل طالب خلال شهر: أحمد 12 كتابًا، سارة 15 كتابًا، فهد 9 كتب، نورة 18 كتابًا. من الطالب الذي قرأ أكبر عدد من الكتب؟',['نورة','سارة','أحمد','فهد'],'نورة','قرأت نورة 18 كتابًا وهو أكبر عدد بين الطلاب.'),
+Q('g3-data-2','g3-m-data','باستخدام الجدول السابق (أحمد 12، سارة 15، فهد 9، نورة 18)، كم كتابًا إضافيًا قرأته نورة مقارنة بفهد؟',['9','6','8','7'],'9','18 - 9 = 9 كتب إضافية قرأتها نورة مقارنة بفهد.'),
+Q('g3-data-3','g3-m-data','يوضح رسم بياني عدد السيارات التي مرت أمام المدرسة كل ساعة: الساعة 7 (20 سيارة)، الساعة 8 (35 سيارة)، الساعة 9 (15 سيارة). في أي ساعة كان عدد السيارات الأكبر؟',['الساعة 8','الساعة 7','الساعة 9','متساوٍ في كل الساعات'],'الساعة 8','35 سيارة في الساعة 8 هو أكبر عدد مقارنة بالساعتين الأخريين.'),
+Q('g3-data-4','g3-m-data','بالاعتماد على الرسم البياني نفسه (20، 35، 15 سيارة)، ما مجموع عدد السيارات في الساعات الثلاث؟',['70','65','75','60'],'70','20 + 35 + 15 = 70 سيارة.'),
+Q('g3-data-5','g3-m-data','في جدول يوضح ألوان السيارات المفضلة لدى 20 طالبًا: أحمر 6، أزرق 8، أخضر 4، أصفر 2. ما اللون الأقل تفضيلًا؟',['الأصفر','الأخضر','الأحمر','الأزرق'],'الأصفر','عدد من يفضلون الأصفر هو 2، وهو أقل عدد بين الألوان.'),
+/* ---------- الصف الثالث: المفردات ---------- */
+Q('g3-vocab-1','g3-r-vocab','حسب النص، مرادف كلمة «يتحمل»:',['يقاوم','يخاف','يهرب','يتجاهل'],'يقاوم','«يتحمل» تعني يصبر ويقاوم الصعوبة.', 'p_camel'),
+Q('g3-vocab-2','g3-r-vocab','ما ضد كلمة «طويلة» كما وردت في النص؟',['قصيرة','كبيرة','بعيدة','ثقيلة'],'قصيرة','ضد كلمة «طويلة» هو «قصيرة».', 'p_camel'),
+Q('g3-vocab-3','g3-r-vocab','حسب النص، مرادف كلمة «الحفاظ»:',['الصون','الإهمال','التلويث','الإتلاف'],'الصون','«الحفاظ» تعني الصون والحماية.', 'p_recycle'),
+Q('g3-vocab-4','g3-r-vocab','ما ضد كلمة «نظيفة» في النص؟',['قذرة','جميلة','واسعة','باردة'],'قذرة','ضد كلمة «نظيفة» هو «قذرة».', 'p_recycle'),
+Q('g3-vocab-5','g3-r-vocab','«شعر الفريق بالفخر بعد فوزه بالمباراة». مرادف كلمة «الفخر»:',['الاعتزاز','الحزن','الخوف','الغضب'],'الاعتزاز','مرادف «الفخر» هو الاعتزاز.'),
+/* ---------- الصف الثالث: الفهم المباشر ---------- */
+Q('g3-detail-1','g3-r-detail','بحسب النص، أين يُخزّن الجمل الدهون التي يستفيد منها عند الحاجة للطاقة؟',['في السنام','في الأذن','في الأهداب','في الرجل'],'في السنام','ذكر النص أن الجمل يخزن الدهون في السنام.', 'p_camel'),
+Q('g3-detail-2','g3-r-detail','بحسب النص، لماذا سُمّي الجمل «سفينة الصحراء»؟',['لقدرته على تحمل الحرارة والعطش والسير مسافات طويلة','لأنه يسبح في الماء','لأن لونه يشبه لون السفينة','لأنه يعيش في البحر'],'لقدرته على تحمل الحرارة والعطش والسير مسافات طويلة','النص يوضح أن هذا اللقب بسبب قدرة الجمل على التحمل والسير الطويل دون ماء.', 'p_camel'),
+Q('g3-detail-3','g3-r-detail','بحسب النص، كيف يمكن للطلاب المشاركة في إعادة التدوير؟',['بفصل القمامة ووضعها في سلال مختلفة','بشراء أشياء جديدة كل يوم','بحرق الأوراق','بترك القمامة في الشارع'],'بفصل القمامة ووضعها في سلال مختلفة','النص ذكر أن الطلاب يشاركون بفصل القمامة ووضع كل نوع في سلة.', 'p_recycle'),
+Q('g3-detail-4','g3-r-detail','ما الموارد الطبيعية التي تساعد إعادة التدوير على توفيرها بحسب النص؟',['الأشجار والماء','الذهب والفضة','النفط والغاز','الرمل والحصى'],'الأشجار والماء','النص ذكر أن إعادة التدوير توفر الأشجار والماء كموارد طبيعية.', 'p_recycle'),
+Q('g3-detail-5','g3-r-detail','ماذا فعل سالم عندما لاحظ أن يوسف يواجه صعوبة في حل مسائل الرياضيات؟',['جلس بجانبه وشرح له الخطوات بهدوء','تجاهله واستمر في اللعب','طلب من المعلم مساعدته','ضحك عليه'],'جلس بجانبه وشرح له الخطوات بهدوء','النص يذكر أن سالم جلس بجانب يوسف وشرح له الخطوات بهدوء وصبر.', 'p_friend'),
+/* ---------- الصف الثالث: الفهم الاستنتاجي ---------- */
+Q('g3-infer-1','g3-r-infer','ما الفكرة الرئيسة للنص؟',['خصائص الجمل التي تُمكّنه من العيش في الصحراء','كيفية صيد الجمال','أنواع الصحاري حول العالم','تاريخ استخدام الجمال في الحروب'],'خصائص الجمل التي تُمكّنه من العيش في الصحراء','النص يتحدث عن الصفات التي تساعد الجمل على تحمل ظروف الصحراء القاسية.', 'p_camel'),
+Q('g3-infer-2','g3-r-infer','ماذا يمكن أن يحدث للجمل لو لم يكن لديه أهداب طويلة وأذنان صغيرتان؟',['قد تتضرر عيناه وأذناه من الرمال أثناء العواصف','سيشرب ماءً أكثر','سيصبح أسرع في الجري','لن يتأثر بشيء'],'قد تتضرر عيناه وأذناه من الرمال أثناء العواصف','النص ذكر أن الأهداب الطويلة والأذنين الصغيرتين تحميان الجمل من الرمال أثناء العواصف.', 'p_camel'),
+Q('g3-infer-3','g3-r-infer','ما العنوان الأنسب لهذا النص؟',['أهمية إعادة التدوير وطريقة المشاركة فيها','تاريخ صناعة الورق','أنواع النفايات الخطرة','كيف تُصنع البلاستيك'],'أهمية إعادة التدوير وطريقة المشاركة فيها','النص كله يتحدث عن فائدة إعادة التدوير وكيف يمكن للطلاب المشاركة فيها.', 'p_recycle'),
+Q('g3-infer-4','g3-r-infer','ما الدرس المستفاد من قصة سالم ويوسف؟',['التعاون ومساعدة الآخرين يجعل الأمور الصعبة أسهل','يجب اللعب دائمًا بدلًا من الدراسة','لا يجب مساعدة الأصدقاء في الواجبات','الرياضيات مادة سهلة للجميع'],'التعاون ومساعدة الآخرين يجعل الأمور الصعبة أسهل','القصة توضح أن مساعدة سالم ليوسف جعلت الأمر الصعب أسهل، وأدرك سالم قيمة التعاون.', 'p_friend'),
+Q('g3-infer-5','g3-r-infer','كيف شعر سالم في نهاية القصة، ولماذا؟',['شعر بالسعادة لأنه ساعد صديقه','شعر بالغضب لأنه أضاع وقته','شعر بالملل','شعر بالخوف'],'شعر بالسعادة لأنه ساعد صديقه','النص ذكر صراحة أن سالم شعر بسعادة كبيرة لأنه ساعد صديقه يوسف.', 'p_friend'),
+
+/* ================= الصف السادس ================= */
+/* ---------- الكسور والأعداد العشرية ---------- */
+Q('g6-num-1','g6-m-num','ما ناتج جمع الكسرين: 3/4 + 1/8 ؟',['7/8','4/12','1/2','5/8'],'7/8','3/4 = 6/8، وبجمع 6/8 + 1/8 = 7/8.'),
+Q('g6-num-2','g6-m-num','ما ناتج 2.35 + 1.7؟',['4.05','3.95','4.5','3.42'],'4.05','2.35 + 1.70 = 4.05.'),
+Q('g6-num-3','g6-m-num','حوّل الكسر 3/5 إلى عدد عشري:',['0.6','0.35','0.53','1.6'],'0.6','3 ÷ 5 = 0.6.'),
+Q('g6-num-4','g6-m-num','أيّ الكسور التالية يساوي 1/2 ؟',['4/8','3/5','2/5','5/9'],'4/8','4/8 = 1/2، وهو الكسر المكافئ المطلوب.'),
+Q('g6-num-5','g6-m-num','ما ناتج ضرب 0.4 × 5؟',['2.0','0.2','20','2.4'],'2.0','0.4 × 5 = 2.0.'),
+/* ---------- النسبة المئوية والجبر ---------- */
+Q('g6-alg-1','g6-m-alg','ما ناتج 20% من 150؟',['30','20','15','35'],'30','20% من 150 = 0.2 × 150 = 30.'),
+Q('g6-alg-2','g6-m-alg','إذا كانت س + 5 = 12، فما قيمة س؟',['7','17','6','8'],'7','من المعادلة س + 5 = 12، فإن س = 12 - 5 = 7.'),
+Q('g6-alg-3','g6-m-alg','باع متجر منتجًا بسعر 80 ريالًا بعد خصم 20% من السعر الأصلي. ما السعر الأصلي؟',['100','96','64','120'],'100','السعر بعد الخصم يمثل 80% من السعر الأصلي، فالسعر الأصلي = 80 ÷ 0.8 = 100 ريال.'),
+Q('g6-alg-4','g6-m-alg','أي عبارة جبرية تمثل: «ضعف عدد ص مضافًا إليه 3»؟',['2ص+3','ص+2+3','2(ص+3)','ص÷2+3'],'2ص+3','«ضعف عدد ص» يُكتب 2ص، ومضافًا إليه 3 يصبح 2ص + 3.'),
+Q('g6-alg-5','g6-m-alg','نجح 85% من طلاب الفصل البالغ عددهم 40 طالبًا. كم عدد الطلاب الناجحين؟',['34','36','32','30'],'34','85% من 40 = 0.85 × 40 = 34 طالبًا.'),
+/* ---------- الهندسة والقياس ---------- */
+Q('g6-geo-1','g6-m-geo','كم مجموع زوايا المثلث الداخلية؟',['180°','360°','90°','270°'],'180°','مجموع زوايا المثلث الداخلية يساوي 180°.'),
+Q('g6-geo-2','g6-m-geo','مستطيل طوله 12 سم وعرضه 5 سم. ما محيطه؟',['34','60','17','68'],'34','محيط المستطيل = 2 × (12 + 5) = 34 سم.'),
+Q('g6-geo-3','g6-m-geo','ما حجم متوازي مستطيلات أبعاده 4سم × 3سم × 5سم؟',['60','12','47','75'],'60','حجم متوازي المستطيلات = 4 × 3 × 5 = 60 سم³.'),
+Q('g6-geo-4','g6-m-geo','زاويتان متجاورتان على خط مستقيم، إذا كانت إحداهما 65°، فما قياس الأخرى؟',['115','125','105','95'],'115','الزاويتان المتجاورتان على خط مستقيم مجموعهما 180°، فالزاوية الأخرى = 180 - 65 = 115°.'),
+Q('g6-geo-5','g6-m-geo','دائرة قطرها 10 سم، ما طول نصف قطرها؟',['5','10','20','2.5'],'5','نصف القطر يساوي نصف القطر الكامل: 10 ÷ 2 = 5 سم.'),
+/* ---------- الإحصاء والاحتمالات ---------- */
+Q('g6-stat-1','g6-m-stat','درجات 5 طلاب في اختبار: 8، 6، 7، 9، 5. ما المتوسط الحسابي؟',['7','8','6','9'],'7','المتوسط = (8+6+7+9+5) ÷ 5 = 35 ÷ 5 = 7.'),
+Q('g6-stat-2','g6-m-stat','درجات 7 لاعبين في مباراة رماية: 12، 15، 9، 20، 11، 15، 8. ما الوسيط بعد ترتيب الدرجات؟',['12','11','15','9'],'12','بعد ترتيب الدرجات: 8، 9، 11، 12، 15، 15، 20، فإن الوسيط (القيمة الوسطى) هو 12.'),
+Q('g6-stat-3','g6-m-stat','كيس يحوي 4 كرات حمراء و6 كرات زرقاء. ما احتمال سحب كرة حمراء عشوائيًا؟',['4/10','6/10','1/2','1/4'],'4/10','عدد الكرات الحمراء 4 من أصل 10 كرات، فاحتمال سحب كرة حمراء = 4/10.'),
+Q('g6-stat-4','g6-m-stat','عند رمي قطعة نقود مرة واحدة، ما احتمال ظهور وجه محدد (كتابة مثلًا)؟',['1/2','1/3','1/4','2/3'],'1/2','لقطعة النقود وجهان فقط، فاحتمال ظهور وجه محدد = 1/2.'),
+Q('g6-stat-5','g6-m-stat','يوضح جدول عدد الطلاب حسب الرياضة المفضلة: كرة قدم 12، سباحة 8، كرة سلة 10، أخرى 5. كم إجمالي عدد الطلاب الذين شملهم الاستطلاع؟',['35','30','40','33'],'35','12 + 8 + 10 + 5 = 35 طالبًا.'),
+/* ---------- الأنماط وحل المسائل ---------- */
+Q('g6-pat-1','g6-m-pattern','ما العدد التالي في النمط: 2، 6، 18، 54، ___؟',['162','108','216','150'],'162','كل عدد يُضرب في 3: 54 × 3 = 162.'),
+Q('g6-pat-2','g6-m-pattern','ما العدد الناقص في النمط: 5، 11، 17، ___، 29؟',['23','22','24','21'],'23','النمط يزيد بمقدار 6 في كل مرة: 17 + 6 = 23.'),
+Q('g6-pat-3','g6-m-pattern','اشترك أحمد في نادٍ رياضي برسوم اشتراك شهرية 45 ريالًا. كم سيدفع خلال 7 أشهر؟',['315','300','325','280'],'315','45 × 7 = 315 ريالًا.'),
+Q('g6-pat-4','g6-m-pattern','وزّعت المدرسة 96 كتابًا بالتساوي على 4 فصول، ثم تبرعت كل فصل بـ 6 كتب للمكتبة. كم كتابًا تبقى في كل فصل؟',['18','24','20','16'],'18','96 ÷ 4 = 24 كتابًا لكل فصل، ثم 24 - 6 = 18 كتابًا متبقيًا.'),
+Q('g6-pat-5','g6-m-pattern','يملأ صنبور خزانًا بمعدل 15 لترًا كل دقيقة. كم لترًا يملأ خلال ربع ساعة؟',['225','180','210','240'],'225','ربع الساعة = 15 دقيقة، و15 × 15 لترًا = 225 لترًا.'),
+/* ---------- العلوم الفيزيائية ---------- */
+Q('g6-phys-1','g6-s-phys','أيّ العبارات التالية تصف سرعة الضوء بشكل صحيح؟',['سرعة الضوء في الفراغ أكبر من سرعته في الأوساط المادية','سرعة الضوء ثابتة في كل الظروف ولا تتغير أبدًا','سرعة الضوء في الماء أكبر منها في الهواء','لا يمكن قياس سرعة الضوء'],'سرعة الضوء في الفراغ أكبر من سرعته في الأوساط المادية','ينتقل الضوء بسرعة أكبر في الفراغ مقارنة بالأوساط المادية كالماء والزجاج.'),
+Q('g6-phys-2','g6-s-phys','ما سبب حدوث التجاذب أو التنافر بين قطبي مغناطيسين دون تلامس بينهما؟',['وجود مجال مغناطيسي حول كل مغناطيس','اختلاف درجة حرارة القطبين','اختلاف لون القطبين','وجود شحنة كهربائية ساكنة فقط'],'وجود مجال مغناطيسي حول كل مغناطيس','التجاذب والتنافر بين الأقطاب المغناطيسية ينتج عن المجال المغناطيسي المحيط بكل مغناطيس.'),
+Q('g6-phys-3','g6-s-phys','أي مما يلي مثال على تغير فيزيائي وليس كيميائيًا؟',['ذوبان قطعة ثلج','احتراق الورق','صدأ الحديد','نضج الفاكهة'],'ذوبان قطعة ثلج','ذوبان الثلج تغيّر في الحالة الفيزيائية فقط، دون تكوّن مادة جديدة.'),
+Q('g6-phys-4','g6-s-phys','الفأس أداة تُستخدم لقطع الأشجار، إلى أي نوع من الآلات البسيطة تنتمي؟',['الوتد','البكرة','الرافعة','العجلة والمحور'],'الوتد','الفأس أداة تعمل بمبدأ الوتد لشق الخشب.'),
+Q('g6-phys-5','g6-s-phys','ما الجهاز في جسم الإنسان الذي يحمي الأعضاء الداخلية مثل القلب والرئتين؟',['الجهاز الهيكلي','الجهاز الهضمي','الجهاز البولي','الجهاز التنفسي'],'الجهاز الهيكلي','القفص الصدري جزء من الجهاز الهيكلي، ويحمي الأعضاء الداخلية كالقلب والرئتين.'),
+/* ---------- العلوم الحياتية ---------- */
+Q('g6-life-1','g6-s-life','أيّ مما يلي مخلوق وحيد الخلية؟',['البكتيريا','الفيل','شجرة التفاح','النسر'],'البكتيريا','البكتيريا مخلوق وحيد الخلية، بينما البقية مخلوقات عديدة الخلايا.'),
+Q('g6-life-2','g6-s-life','في وراثة النبات، إذا كانت الصفة AA أو Aa تعطي بذورًا ملساء، والصفة aa تعطي بذورًا مجعدة، فأي صفة تعتبر متنحية؟',['البذور المجعدة (aa)','البذور الملساء (AA)','البذور الملساء (Aa)','كلاهما سائد'],'البذور المجعدة (aa)','الصفة المتنحية تظهر فقط عند اجتماع نسختين متماثلتين متنحيتين (aa).'),
+Q('g6-life-3','g6-s-life','أي مما يلي من خصائص المخلوقات الحية جميعًا؟',['النمو والتكاثر','امتلاك أوراق خضراء','العيش في الماء فقط','القدرة على الطيران'],'النمو والتكاثر','النمو والتكاثر من الخصائص المشتركة بين جميع المخلوقات الحية.'),
+Q('g6-life-4','g6-s-life','أي الطرق التالية أفضل للحفاظ على التربة في المناطق ذات الرياح العالية؟',['زراعة مصدات نباتية (أشجار وشجيرات)','إزالة كل النباتات','حرث التربة باستمرار','ريّ التربة بكثرة'],'زراعة مصدات نباتية (أشجار وشجيرات)','المصدات النباتية تقلل من سرعة الرياح فتحمي التربة من الانجراف.'),
+Q('g6-life-5','g6-s-life','ما الفرق بين المخلوقات وحيدة الخلية والمخلوقات عديدة الخلايا؟',['وحيدة الخلية تتكون من خلية واحدة، وعديدة الخلايا تتكون من خلايا كثيرة','لا يوجد فرق بينهما','وحيدة الخلية أكبر حجمًا دائمًا','عديدة الخلايا لا تحتاج غذاء'],'وحيدة الخلية تتكون من خلية واحدة، وعديدة الخلايا تتكون من خلايا كثيرة','هذا هو الفرق الأساسي بين نوعي المخلوقات الحية.'),
+/* ---------- علوم الأرض والفضاء ---------- */
+Q('g6-earth-1','g6-s-earth','بحث سليمان عن القمر في السماء ولم يجده رغم صفاء الجو، في أي طور كان القمر على الأرجح؟',['المحاق (القمر الجديد)','البدر','الأحدب الأول','الأحدب الأخير'],'المحاق (القمر الجديد)','في طور المحاق لا يظهر القمر مضاءً للرائي من الأرض.'),
+Q('g6-earth-2','g6-s-earth','ما السبب الرئيس لتكوّن كثير من الكهوف الطبيعية في الأرض؟',['ذوبان الصخور بفعل المياه الحمضية عبر الزمن','حركة الرياح فقط','سقوط النيازك','ذوبان الجليد القطبي'],'ذوبان الصخور بفعل المياه الحمضية عبر الزمن','هذا هو السبب الرئيس لتكوّن معظم الكهوف الطبيعية.'),
+Q('g6-earth-3','g6-s-earth','ماذا نسمي الطبقة الخارجية الصلبة من الأرض التي نعيش عليها؟',['القشرة الأرضية','اللب الداخلي','الوشاح','الغلاف الجوي'],'القشرة الأرضية','القشرة الأرضية هي الطبقة الخارجية الصلبة التي نعيش عليها.'),
+Q('g6-earth-4','g6-s-earth','ما سبب حدوث فصول السنة الأربعة على الأرض؟',['ميل محور الأرض أثناء دورانها حول الشمس','اقتراب الأرض من الشمس وابتعادها فقط','دوران القمر حول الأرض','تغير سرعة دوران الأرض حول نفسها'],'ميل محور الأرض أثناء دورانها حول الشمس','ميل محور الأرض هو السبب الرئيس لاختلاف الفصول الأربعة.'),
+Q('g6-earth-5','g6-s-earth','أي مما يلي يمثل مصدرًا للطاقة المتجددة؟',['الطاقة الشمسية','الفحم','النفط','الغاز الطبيعي'],'الطاقة الشمسية','الطاقة الشمسية مصدر طاقة متجدد لا ينضب، بعكس الوقود الأحفوري.'),
+/* ---------- المفردات ---------- */
+Q('g6-rvocab-1','g6-r-vocab','مرادف كلمة «تُستمد» كما وردت في النص:',['تُؤخَذ','تُخزَّن','تُباع','تُقاس'],'تُؤخَذ','«تُستمد» تعني تُؤخَذ من مصدرها.', 'p_solar'),
+Q('g6-rvocab-2','g6-r-vocab','ضد كلمة «نظيفة» في سياق النص:',['ملوِّثة','باردة','رخيصة','بطيئة'],'ملوِّثة','ضد كلمة «نظيفة» في سياق النص هو «ملوِّثة».', 'p_solar'),
+Q('g6-rvocab-3','g6-r-vocab','مرادف كلمة «حيويًا» كما وردت في النص:',['مهمًا وأساسيًا','بسيطًا','نادرًا','خطيرًا'],'مهمًا وأساسيًا','«حيويًا» تعني مهمًا وأساسيًا لاستمرار الحياة.', 'p_bees'),
+Q('g6-rvocab-4','g6-r-vocab','ضد كلمة «تتناقص» في النص:',['تزداد','تختفي','تتوقف','تتغير'],'تزداد','ضد كلمة «تتناقص» هو «تزداد».', 'p_bees'),
+Q('g6-rvocab-5','g6-r-vocab','«أبدى الفريق حماسًا كبيرًا استعدادًا للمباراة النهائية». مرادف كلمة «حماسًا»:',['شغفًا وإثارة','خوفًا','حزنًا','ملَلًا'],'شغفًا وإثارة','مرادف «حماسًا» هو شغفًا وإثارة.'),
+/* ---------- الفهم المباشر والتفاصيل ---------- */
+Q('g6-rdetail-1','g6-r-detail','بحسب النص، ما اسم الألواح التي تُحوّل أشعة الشمس إلى كهرباء؟',['الخلايا الشمسية','الألواح المعدنية','المرايا العاكسة','البطاريات الشمسية'],'الخلايا الشمسية','النص ذكر أن الخلايا الشمسية هي التي تحوّل أشعة الشمس إلى كهرباء.', 'p_solar'),
+Q('g6-rdetail-2','g6-r-detail','بحسب النص، ما التحديات التي تواجه الطاقة الشمسية؟',['ارتفاع التكلفة وحاجتها لمساحات واسعة وضعف كفاءتها ليلًا','أنها تنتج تلوثًا كبيرًا للهواء','أنها غير متوفرة في السعودية','أنها تستنزف النفط'],'ارتفاع التكلفة وحاجتها لمساحات واسعة وضعف كفاءتها ليلًا','النص ذكر هذه التحديات الثلاثة تحديدًا لتقنية الطاقة الشمسية.', 'p_solar'),
+Q('g6-rdetail-3','g6-r-detail','بحسب النص، كيف ينقل النحل حبوب اللقاح بين الأزهار؟',['تعلق حبوب اللقاح بجسمه المغطى بالشعيرات أثناء انتقاله بين الأزهار','يحملها بأرجله فقط داخل كيس خاص','ينقلها عبر الرياح','لا ينقلها بل تنقلها الفراشات'],'تعلق حبوب اللقاح بجسمه المغطى بالشعيرات أثناء انتقاله بين الأزهار','النص وصف كيف تعلق حبوب اللقاح بجسم النحلة الصغير أثناء تنقلها بين الأزهار.', 'p_bees'),
+Q('g6-rdetail-4','g6-r-detail','بحسب النص، ما الأسباب التي تؤدي إلى تناقص أعداد النحل؟',['المبيدات الحشرية وفقدان البيئات الطبيعية وتغير المناخ','كثرة الأزهار','زيادة عدد مربي النحل','برودة الطقس فقط'],'المبيدات الحشرية وفقدان البيئات الطبيعية وتغير المناخ','النص ذكر هذه الأسباب الثلاثة لتناقص أعداد النحل.', 'p_bees'),
+Q('g6-rdetail-5','g6-r-detail','بحسب النص، متى تفتح الحديقة الجديدة أبوابها؟',['من الساعة 4 عصرًا حتى 10 مساءً','من الصباح حتى الظهر','طوال اليوم','من 10 مساءً حتى 4 عصرًا'],'من الساعة 4 عصرًا حتى 10 مساءً','النص ذكر مواعيد فتح الحديقة صراحة.', 'p_park'),
+/* ---------- الاستنتاج ونوع النص ---------- */
+Q('g6-rinfer-1','g6-r-infer','ما نوع هذا النص؟',['نص معلوماتي (علمي)','نص قصصي','نص شعري','نص إعلاني'],'نص معلوماتي (علمي)','النص يقدّم معلومات علمية عن الطاقة الشمسية بأسلوب موضوعي، فهو نص معلوماتي.', 'p_solar'),
+Q('g6-rinfer-2','g6-r-infer','لماذا تُعدّ مناطق مثل السعودية مناسبة بشكل خاص للطاقة الشمسية بحسب النص؟',['لأنها تتمتع بأشعة شمس قوية طوال العام','لأنها قريبة من البحر','لأنها باردة معظم السنة','لأنها تفتقر لمصادر الطاقة الأخرى'],'لأنها تتمتع بأشعة شمس قوية طوال العام','النص ذكر أن المناطق الصحراوية القوية الشمس مثل السعودية مناسبة للطاقة الشمسية.', 'p_solar'),
+Q('g6-rinfer-3','g6-r-infer','ما الفكرة الرئيسة لهذا النص؟',['أهمية النحل في التلقيح والأسباب المهددة لبقائه وطرق حمايته','كيفية استخراج العسل من الخلية','أنواع النحل حول العالم','تاريخ تربية النحل'],'أهمية النحل في التلقيح والأسباب المهددة لبقائه وطرق حمايته','هذه هي الفكرة الرئيسة التي يدور حولها النص كاملًا.', 'p_bees'),
+Q('g6-rinfer-4','g6-r-infer','لو اختفى النحل تمامًا، فماذا يُتوقع أن يحدث بحسب المعلومات الواردة في النص؟',['تراجع كبير في إنتاج الكثير من المحاصيل الغذائية بسبب ضعف التلقيح','لا شيء سيتغير','ستزداد كمية الثمار','ستتحسن البيئة بشكل عام'],'تراجع كبير في إنتاج الكثير من المحاصيل الغذائية بسبب ضعف التلقيح','بما أن ثلث المحاصيل يعتمد على تلقيح النحل، فاختفاؤه سيؤدي إلى تراجع كبير في الإنتاج.', 'p_bees'),
+Q('g6-rinfer-5','g6-r-infer','ما نوع هذا النص؟',['نص إرشادي/إعلامي عن مرفق عام','نص قصصي خيالي','قصيدة','مقال رأي جدلي'],'نص إرشادي/إعلامي عن مرفق عام','النص يقدّم معلومات عملية عن حديقة عامة جديدة ومواعيد فتحها.', 'p_park'),
+];
+
+/* ================= أدوات مساعدة ================= */
+const $ = s => document.querySelector(s);
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function byId(arr,id){ return arr.find(x=>x.id===id); }
+function questionsForSkill(skillId){ return QUESTIONS.filter(q=>q.skill===skillId); }
+function skillsFor(grade){ return SKILLS[grade]; }
+function subjectsOrder(grade){ return grade===3 ? ['math','reading'] : ['math','science','reading']; }
+function fmtTime(s){ const m=Math.floor(s/60); const ss=s%60; return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); }
+function show(id){
+  document.querySelectorAll('.screen').forEach(el=>el.classList.add('hidden'));
+  $('#'+id).classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function letterFor(i){ return ['أ','ب','ج','د'][i]; }
+
+/* ================= الحالة ================= */
+let state = null;
+
+function freshSkillStats(grade){
+  const s = {};
+  skillsFor(grade).forEach(sk => s[sk.id] = {correct:0, total:0});
+  return s;
+}
+
+function newState(name, grade){
+  return {
+    name, grade,
+    skillStats: freshSkillStats(grade),
+    skillPoolIndex: {}, // skillId -> index cursor for cycling through that skill's question pool
+    diagUsed: {}, // skillId -> [questionIds used in diagnostic to avoid immediate repeats in training]
+    diagQueue: [], diagIndex: 0, diagAnswers: {},
+    sectionQueue: [], // list of {subject, items:[...]}
+    trainQueue: [], trainIndex: 0, trainRoundCorrect:0, trainRoundTotal:0,
+    diagStartTs: null,
+    completedDiagnosticOnce: false
+  };
+}
+
+function saveState(){
+  try{
+    localStorage.setItem('nafesPrepState_v1', JSON.stringify({
+      name: state.name, grade: state.grade, skillStats: state.skillStats,
+      completedDiagnosticOnce: state.completedDiagnosticOnce
+    }));
+  }catch(e){}
+}
+function loadSaved(){
+  try{ return JSON.parse(localStorage.getItem('nafesPrepState_v1')); }catch(e){ return null; }
+}
+function clearSaved(){
+  localStorage.removeItem('nafesPrepState_v1');
+  $('#resumeBanner').classList.add('hidden');
+}
+
+/* ================= شاشة الترحيب ================= */
+let pickedGrade = null;
+function pickGrade(g){
+  pickedGrade = g;
+  document.querySelectorAll('.grade-card').forEach(c=>c.classList.toggle('selected', Number(c.dataset.grade)===g));
+  checkStartEnabled();
+}
+function checkStartEnabled(){
+  const name = $('#studentName').value.trim();
+  $('#startBtn').disabled = !(name.length>0 && pickedGrade);
+}
+
+function initApp(){
+  $('#studentName').addEventListener('input', checkStartEnabled);
+  const saved = loadSaved();
+  if(saved && saved.name && saved.completedDiagnosticOnce){
+    $('#resumeBanner').classList.remove('hidden');
+    $('#resumeText').textContent = `مرحبًا بعودتك يا ${saved.name}! لديك نتائج سابقة في ${saved.grade===3?'الصف الثالث':'الصف السادس'} الابتدائي.`;
+    window.__saved = saved;
+  }
+  show('screen-welcome');
+}
+
+function resumeTraining(){
+  const saved = window.__saved;
+  state = newState(saved.name, saved.grade);
+  state.skillStats = saved.skillStats;
+  state.completedDiagnosticOnce = true;
+  setTopPill();
+  goTraining();
+}
+
+/* ================= بدء الرحلة ================= */
+function startFlow(){
+  const name = $('#studentName').value.trim();
+  if(!name || !pickedGrade) return;
+  state = newState(name, pickedGrade);
+  setTopPill();
+  buildDiagnostic();
+}
+function setTopPill(){
+  const p = $('#topPill');
+  p.classList.remove('hidden');
+  p.textContent = `👤 ${state.name} — ${state.grade===3?'ثالث ابتدائي':'سادس ابتدائي'}`;
+}
+
+function buildDiagnostic(){
+  state.sectionQueue = [];
+  subjectsOrder(state.grade).forEach(subject=>{
+    const skillsIn = skillsFor(state.grade).filter(s=>s.subject===subject);
+    let items = [];
+    skillsIn.forEach(sk=>{
+      const pool = shuffle(questionsForSkill(sk.id));
+      const picked = pool.slice(0,2);
+      state.diagUsed[sk.id] = picked.map(q=>q.id);
+      picked.forEach(q=> items.push({...q, skillObj:sk}));
+    });
+    items = shuffle(items);
+    state.sectionQueue.push({subject, items});
+  });
+  state.diagQueue = state.sectionQueue.flatMap(sec=>sec.items);
+  state.diagIndex = 0;
+  state.diagAnswers = {};
+  state.currentSectionIdx = 0;
+  showSectionIntro();
+}
+
+function showSectionIntro(){
+  const sec = state.sectionQueue[state.currentSectionIdx];
+  const meta = SUBJECTS[sec.subject];
+  $('#siIcon').textContent = meta.icon;
+  $('#siTitle').textContent = `القسم: ${meta.name}`;
+  $('#siMeta').textContent = `عدد الأسئلة: ${sec.items.length} — الزمن التقريبي: ${Math.max(5, sec.items.length*2)} دقيقة`;
+  show('screen-section-intro');
+}
+
+function beginSection(){
+  if(!state.diagStartTs) state.diagStartTs = Date.now();
+  startStopwatch();
+  renderDiagnosticQuestion();
+  show('screen-diagnostic');
+}
+
+let stopwatchTimer = null;
+function startStopwatch(){
+  clearInterval(stopwatchTimer);
+  stopwatchTimer = setInterval(()=>{
+    const secs = Math.floor((Date.now()-state.diagStartTs)/1000);
+    $('#diagStopwatch').textContent = '⏱ ' + fmtTime(secs);
+  }, 1000);
+}
+
+/* ================= عرض سؤال التشخيص ================= */
+let currentDiagShuffled = null;
+function renderDiagnosticQuestion(){
+  const q = state.diagQueue[state.diagIndex];
+  const meta = SUBJECTS[q.skillObj.subject];
+  $('#diagSubjTag').innerHTML = `${meta.icon} ${meta.name} — ${q.skillObj.name}`;
+  $('#diagCounter').textContent = `السؤال ${state.diagIndex+1} من ${state.diagQueue.length}`;
+  $('#diagProgressFill').style.width = ((state.diagIndex)/state.diagQueue.length*100)+'%';
+
+  const passBox = $('#diagPassage');
+  if(q.passage){
+    passBox.innerHTML = `<div class="passage-box"><b>النص:</b>${PASSAGES[q.passage]}</div>`;
+  } else { passBox.innerHTML = ''; }
+
+  $('#diagQText').textContent = q.q;
+  currentDiagShuffled = shuffle(q.options);
+  const optWrap = $('#diagOptions');
+  optWrap.innerHTML = '';
+  const savedAnswer = state.diagAnswers[q.id];
+  currentDiagShuffled.forEach((opt,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt' + (savedAnswer===opt ? ' picked' : '');
+    b.innerHTML = `<span class="letter">${letterFor(i)}</span><span>${opt}</span>`;
+    b.onclick = ()=>{
+      state.diagAnswers[q.id] = opt;
+      renderDiagnosticQuestion();
+    };
+    optWrap.appendChild(b);
+  });
+
+  $('#diagPrevBtn').disabled = state.diagIndex===0;
+  $('#diagNextBtn').disabled = !savedAnswer;
+  $('#diagNextBtn').textContent = (state.diagIndex === state.diagQueue.length-1) ? 'إنهاء الاختبار وعرض التقرير' : 'التالي';
+}
+
+function diagPrev(){
+  if(state.diagIndex===0) return;
+  state.diagIndex--;
+  // إذا انتقلنا لقسم سابق، حدّث مؤشر القسم
+  syncSectionIndex();
+  renderDiagnosticQuestion();
+}
+function diagNext(){
+  const q = state.diagQueue[state.diagIndex];
+  if(!state.diagAnswers[q.id]) return;
+  if(state.diagIndex === state.diagQueue.length-1){
+    finishDiagnostic();
+    return;
+  }
+  state.diagIndex++;
+  const prevSectionIdx = state.currentSectionIdx;
+  syncSectionIndex();
+  if(state.currentSectionIdx !== prevSectionIdx){
+    clearInterval(stopwatchTimer);
+    showSectionIntro();
+  } else {
+    renderDiagnosticQuestion();
+  }
+}
+function syncSectionIndex(){
+  let count = 0;
+  for(let i=0;i<state.sectionQueue.length;i++){
+    count += state.sectionQueue[i].items.length;
+    if(state.diagIndex < count){ state.currentSectionIdx = i; return; }
+  }
+  state.currentSectionIdx = state.sectionQueue.length-1;
+}
+
+function finishDiagnostic(){
+  clearInterval(stopwatchTimer);
+  state.diagQueue.forEach(q=>{
+    const chosen = state.diagAnswers[q.id];
+    const st = state.skillStats[q.skill];
+    st.total++;
+    if(chosen === q.answer) st.correct++;
+  });
+  state.completedDiagnosticOnce = true;
+  saveState();
+  renderReport();
+}
+
+/* ================= التقرير ================= */
+function levelInfo(pct){
+  if(pct>=85) return {label:'🌟 متميز', color:'var(--success)'};
+  if(pct>=70) return {label:'👍 متمكّن', color:'var(--primary)'};
+  if(pct>=50) return {label:'📈 في تقدم', color:'var(--warning)'};
+  return {label:'💪 يحتاج تدريبًا إضافيًا', color:'var(--danger)'};
+}
+function skillAccuracy(skillId){
+  const st = state.skillStats[skillId];
+  if(!st || st.total===0) return null;
+  return st.correct/st.total;
+}
+function barColor(acc){
+  if(acc>=0.8) return 'var(--success)';
+  if(acc>=0.5) return 'var(--warning)';
+  return 'var(--danger)';
+}
+
+function renderSkillBlocks(container, grade){
+  container.innerHTML = '';
+  subjectsOrder(grade).forEach(subject=>{
+    const meta = SUBJECTS[subject];
+    const skillsIn = skillsFor(grade).filter(s=>s.subject===subject);
+    const block = document.createElement('div');
+    block.className = 'subject-block';
+    block.innerHTML = `<div class="subject-title">${meta.icon} ${meta.name}</div>`;
+    skillsIn.forEach(sk=>{
+      const acc = skillAccuracy(sk.id);
+      const pct = acc===null ? 0 : Math.round(acc*100);
+      const row = document.createElement('div');
+      row.className = 'skill-row';
+      row.innerHTML = `<div class="lbl"><b>${sk.name}</b><span>${acc===null?'لم يُختبر بعد':pct+'%'}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${acc===null?'var(--border)':barColor(acc)}"></div></div>`;
+      block.appendChild(row);
+    });
+    container.appendChild(block);
+  });
+}
+
+function renderReport(){
+  const totalCorrect = Object.values(state.skillStats).reduce((a,s)=>a+s.correct,0);
+  const totalCount = Object.values(state.skillStats).reduce((a,s)=>a+s.total,0);
+  const pct = totalCount ? Math.round(totalCorrect/totalCount*100) : 0;
+  const lvl = levelInfo(pct);
+  $('#repScore').textContent = pct+'%';
+  $('#repScore').style.color = lvl.color;
+  $('#repLevel').textContent = lvl.label;
+  $('#repLevel').style.color = lvl.color;
+  $('#repSub').textContent = `أجاب ${state.name} إجابة صحيحة عن ${totalCorrect} من أصل ${totalCount} سؤالًا في الاختبار التشخيصي.`;
+  $('#repName').textContent = state.name;
+
+  renderSkillBlocks($('#repSkillBlocks'), state.grade);
+
+  const skillsAll = skillsFor(state.grade);
+  const withAcc = skillsAll.map(sk=>({sk, acc: skillAccuracy(sk.id)})).filter(x=>x.acc!==null);
+  const strengths = withAcc.filter(x=>x.acc>=0.8).sort((a,b)=>b.acc-a.acc);
+  const weak = withAcc.filter(x=>x.acc<0.8).sort((a,b)=>a.acc-b.acc);
+
+  const strWrap = $('#repStrengths');
+  strWrap.innerHTML = strengths.length ? '' : '<p class="muted">لا توجد بعد مهارات وصلت لمستوى الإتقان — واصل التدريب لتصل إليه!</p>';
+  strengths.forEach(x=>{
+    const d = document.createElement('div');
+    d.className='item';
+    d.innerHTML = `<b>${x.sk.name}</b><span>${Math.round(x.acc*100)}% إجابات صحيحة — أداء قوي 👏</span>`;
+    strWrap.appendChild(d);
+  });
+
+  const weakWrap = $('#repWeak');
+  weakWrap.innerHTML = weak.length ? '' : '<p class="muted">أداء ممتاز في جميع المهارات! 🎉</p>';
+  weak.forEach(x=>{
+    const d = document.createElement('div');
+    d.className='item';
+    d.innerHTML = `<b>${x.sk.name}</b><span>${Math.round(x.acc*100)}% — ${x.sk.tip}</span>`;
+    weakWrap.appendChild(d);
+  });
+
+  saveState();
+  show('screen-report');
+}
+
+/* ================= التدريب ================= */
+function nextPoolQuestion(skillId, excludeIds){
+  if(!state.skillPoolIndex[skillId]) state.skillPoolIndex[skillId] = {order: shuffle(questionsForSkill(skillId)), cursor:0};
+  const bucket = state.skillPoolIndex[skillId];
+  for(let tries=0; tries<bucket.order.length; tries++){
+    const q = bucket.order[bucket.cursor % bucket.order.length];
+    bucket.cursor++;
+    if(!excludeIds.has(q.id) || bucket.cursor > bucket.order.length*2){
+      return q;
+    }
+  }
+  return bucket.order[0];
+}
+
+function buildTrainingRound(n){
+  n = n || 8;
+  const skillsAll = skillsFor(state.grade);
+  const weights = skillsAll.map(sk=>{
+    const acc = skillAccuracy(sk.id);
+    if(acc===null) return 3;
+    if(acc<0.5) return 5;
+    if(acc<0.8) return 3;
+    return 1;
+  });
+  const totalW = weights.reduce((a,b)=>a+b,0);
+  const queue = [];
+  const usedThisRound = new Set();
+  let lastSkill = null;
+  for(let i=0;i<n;i++){
+    let r = Math.random()*totalW, idx=0, acc=0;
+    for(let k=0;k<weights.length;k++){ acc+=weights[k]; if(r<=acc){ idx=k; break; } }
+    let sk = skillsAll[idx];
+    if(sk.id===lastSkill && skillsAll.length>1){
+      idx = (idx+1)%skillsAll.length; sk = skillsAll[idx];
+    }
+    lastSkill = sk.id;
+    const q = nextPoolQuestion(sk.id, usedThisRound);
+    usedThisRound.add(q.id);
+    queue.push({...q, skillObj: sk});
+  }
+  return queue;
+}
+
+function goTraining(){
+  state.trainQueue = buildTrainingRound(8);
+  state.trainIndex = 0;
+  state.trainRoundCorrect = 0;
+  state.trainRoundTotal = 0;
+  renderTrainingQuestion();
+  renderSkillBlocks($('#liveSkillBlocks'), state.grade);
+  show('screen-training');
+}
+
+let currentTrainShuffled = null;
+function renderTrainingQuestion(){
+  const q = state.trainQueue[state.trainIndex];
+  const meta = SUBJECTS[q.skillObj.subject];
+  $('#trainSubjTag').innerHTML = `${meta.icon} ${meta.name} — ${q.skillObj.name}`;
+  $('#trainCounter').textContent = `${state.trainIndex+1} / ${state.trainQueue.length}`;
+  $('#trainProgressFill').style.width = (state.trainIndex/state.trainQueue.length*100)+'%';
+
+  const passBox = $('#trainPassage');
+  passBox.innerHTML = q.passage ? `<div class="passage-box"><b>النص:</b>${PASSAGES[q.passage]}</div>` : '';
+
+  $('#trainQText').textContent = q.q;
+  $('#trainFeedback').innerHTML = '';
+  $('#trainNextBtn').disabled = true;
+  $('#trainNextBtn').textContent = (state.trainIndex===state.trainQueue.length-1) ? 'إنهاء الجولة' : 'التالي';
+
+  currentTrainShuffled = shuffle(q.options);
+  const optWrap = $('#trainOptions');
+  optWrap.innerHTML = '';
+  currentTrainShuffled.forEach((opt,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = `<span class="letter">${letterFor(i)}</span><span>${opt}</span>`;
+    b.onclick = ()=> answerTraining(q, opt, b);
+    optWrap.appendChild(b);
+  });
+}
+
+function answerTraining(q, chosen, btnEl){
+  const optWrap = $('#trainOptions');
+  const buttons = Array.from(optWrap.children);
+  buttons.forEach(b=>b.setAttribute('disabled','true'));
+  const isCorrect = chosen === q.answer;
+  buttons.forEach((b,i)=>{
+    if(currentTrainShuffled[i]===q.answer) b.classList.add('correct');
+    else if(currentTrainShuffled[i]===chosen) b.classList.add('wrong');
+  });
+
+  const st = state.skillStats[q.skill];
+  st.total++; if(isCorrect) st.correct++;
+  state.trainRoundTotal++; if(isCorrect) state.trainRoundCorrect++;
+
+  const fb = $('#trainFeedback');
+  fb.innerHTML = `<div class="feedback ${isCorrect?'ok':'bad'}"><b>${isCorrect?'إجابة صحيحة! 🎉':'إجابة غير صحيحة'}</b>${q.ex}</div>`;
+
+  renderSkillBlocks($('#liveSkillBlocks'), state.grade);
+  $('#trainNextBtn').disabled = false;
+  saveState();
+}
+
+function trainNext(){
+  if(state.trainIndex === state.trainQueue.length-1){
+    finishTrainingRound();
+    return;
+  }
+  state.trainIndex++;
+  renderTrainingQuestion();
+}
+
+function finishTrainingRound(){
+  $('#rsCorrect').textContent = state.trainRoundCorrect;
+  $('#rsTotal').textContent = state.trainRoundTotal;
+  const pct = Math.round(state.trainRoundCorrect/state.trainRoundTotal*100);
+  let note = '';
+  if(pct>=80) note = 'أداء رائع في هذه الجولة! استمر على هذا المستوى. 🌟';
+  else if(pct>=50) note = 'تحسّن جيد! لا تزال بعض النقاط تحتاج مراجعة. 💪';
+  else note = 'لا بأس، التدريب يحتاج وقتًا. راجع نقاط الضعف وحاول مرة أخرى. 🙂';
+  $('#rsNote').textContent = note;
+  saveState();
+  show('screen-round-summary');
+}
+
+/* ================= إعادة الاختبار التشخيصي ================= */
+function retakeDiagnostic(){
+  buildDiagnostic();
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
